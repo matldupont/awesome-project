@@ -1,65 +1,69 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import Button from "./Button";
-import Input from "./Input";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      inputValue: "",
-      step: 1
+      inputVal: "",
+      todos: []
     };
 
-    this.inputChangeHandler = this.inputChangeHandler.bind(this);
-    this.startClickHandler = this.startClickHandler.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
-  inputChangeHandler(inputValue) {
+  handleInputChange(event) {
+    console.log(event.target.value);
     this.setState({
-      inputValue
+      inputVal: event.target.value
     });
   }
 
-  startClickHandler() {
-    console.log("start clicked");
-    console.log(this.state.inputValue);
-    if (this.state.inputValue.length > 0) {
-      this.setState({
-        inputValue: "",
-        step: 2
-      });
+  handleKeyPress(event) {
+    if (event.key === "Enter") {
+      console.log("ADD MY TODO!!", this.state.inputVal);
     }
   }
 
   render() {
+    console.log("RENDER", this.state);
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1>Welcome to Rebel Website Design</h1>
-          {this.state.step === 1 && (
-            <React.Fragment>
-              <Button title="Start" onButtonClick={this.startClickHandler} />
-              <Input
-                value={this.state.inputValue}
-                onChange={this.inputChangeHandler}
-              />
-            </React.Fragment>
-          )}
-
-          {this.state.step === 2 && (
-            <React.Fragment>
-              <Button
-                title="Prev"
-                onButtonClick={() => this.setState({ step: 1 })}
-              />
-              <div>Showing Step 2</div>
-            </React.Fragment>
-          )}
+          <h1>Adam needs to build these sites..</h1>
         </header>
+        <main>
+          <div className="TodoWrapper">
+            <div className="TodoInputWrapper">
+              <input
+                className="TodoInput"
+                onChange={this.handleInputChange}
+                onKeyPress={this.handleKeyPress}
+                value={this.state.inputVal}
+              />
+            </div>
+            <div className="TodoItemList">
+              <div className="TodoListItem">
+                <div className="TodoListItemText">thing to do</div>
+                <button className="TodoListItemRemoveBtn">remove</button>
+              </div>
+              <div className="TodoListItem">
+                <div className="TodoListItemText">thing to do</div>
+                <button className="TodoListItemRemoveBtn">remove</button>
+              </div>
+              <div className="TodoListItem">
+                <div className="TodoListItemText">thing to do</div>
+                <button className="TodoListItemRemoveBtn">remove</button>
+              </div>
+              <div className="TodoListItem">
+                <div className="TodoListItemText">thing to do</div>
+                <button className="TodoListItemRemoveBtn">remove</button>
+              </div>
+            </div>
+          </div>
+        </main>
       </div>
     );
   }
